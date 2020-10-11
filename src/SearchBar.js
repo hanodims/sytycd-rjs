@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-const SearchBar = props => {
+const SearchBar = (props) => {
   const [query, setQuery] = useState("");
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setQuery(event.target.value);
     props.onChange(event.target.value);
   };

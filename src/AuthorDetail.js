@@ -9,19 +9,15 @@ import Loading from "./Loading";
 import { useParams } from "react-router-dom";
 
 const instance = axios.create({
-  baseURL: "https://the-index-api.herokuapp.com"
+  baseURL: "https://the-index-api.herokuapp.com",
 });
 
-const AuthorDetail = props => {
-  const [author, setAuthor] = useState(null);
+const AuthorDetail = (props) => {
+  const [author, setAuthor] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getAuthor();
-  }, [useParams().authorID]);
+  const authorID = useParams().authorID;
 
   const getAuthor = async () => {
-    const authorID = useParams().authorID;
     setLoading(true);
     try {
       const res = await instance.get(`/api/authors/${authorID}`);
@@ -33,10 +29,13 @@ const AuthorDetail = props => {
     }
   };
 
+  useEffect(() => {
+    getAuthor();
+  }, [useParams().authorID]);
+
   if (loading) {
     return <Loading />;
   } else {
-    const author = author;
     const authorName = `${author.first_name} ${author.last_name}`;
     return (
       <div className="author">
